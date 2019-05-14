@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Index</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <nav>
+                <a href="/logout">Logout</a>
+            {% with messages = get_flashed_messages(with_categories=true) %}     <!-- declare a variable called messages -->
+                {% if messages %}  
+                    <ul class="flashes">                         <!-- check if there are any messages -->
+                        {% for category, message in messages %}            <!-- loop through the messages -->
+                        <p class="success {{category}}">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    </ul>     
+                {% endif %}
+            {% endwith %}
+                <h3>Hello {{session['first_name']}}!</h3>
+                    <p>{{session["email"]}}</p>
+                    <p>{{session['created_at']}}</p>
+        </nav>
+
+        <a class="btn btn-dark" href="/wishes">Make a wish!</a>
+
+        <div id="user_wishes">
+                <h4>{{session['first_name']}}'s wish list:</h4>
+    
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Item</th>
+                            <th>Date Added</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for wishes in wish_list %}
+                        <tr>
+                            <td><strong>{{wishes['wish']}}</strong></td>
+                            <td>{{wishes['created_at']}}</td>
+                            <td><a href="/wishes/edit/{{wishes['id']}}"> Edit | </a>
+                                <a href="/wishes/remove/{{wishes['id']}}"> Remove |</a>
+                            <form action="wishes/grant/{{wishes['id']}}" method="POST"> 
+                                <input type="hidden" value="{{session['user_id']}}" name="submit_granted_id">
+                                <input type="hidden" value="{{wishes['id']}}" name="submit_wish_id">
+                                <input class='btn btn-link' type="submit" value="Granted!">
+                            </form> 
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        <hr>
+    
+            <div id="wishes_granted">
+                    <h4>Wishes Granted:</h4>
+        
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Item</th>
+                                <th>Wisher</th>
+                                <th>Date Added</th>
+                                <th>Date Granted</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- (for loop through wishes) -->
+                        {% for wishes in wishes_granted %}
+                                <tr>
+                                    <td><strong>{{wishes['wish']}}</strong></td>
+                                    <td>{{wishes['wisher']}}</td>
+                                    <td>{{wishes['created_at']}}</td>
+                                    <td>{{wishes['granted_on']}}</td>
+                                    <td><a href="">Like</a></td>
+                                </tr>
+                        {% endfor %}
+                            <!-- (end loop) -->
+                        </tbody>
+                      
+                    </table>
+            </div>
+
+    </div>
+</body>
+</html>

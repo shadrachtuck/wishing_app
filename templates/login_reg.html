@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Index</title>
+</head>
+<body>
+    <div class="container">
+            <h1>Welcome, sign in to create a wish!</h1>
+        <div id="register" class="col"> 
+            {% with messages = get_flashed_messages(with_categories=true) %}     <!-- declare a variable called messages -->
+                {% if messages %}  
+                <ul class="flashes">                         <!-- check if there are any messages -->
+                    {% for category, message in messages %}            <!-- loop through the messages -->
+                    <!-- if category is registration -->
+                        {% if category == 'registration' %}
+                        <p class="error {{category}}">{{message}}</p>   
+                        {% endif %}                <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                </ul>     
+                {% endif %}
+            {% endwith %}
+                
+            <form action="/register" method="POST">
+                <h3>Register</h3>
+
+                <div class="form-group">
+                    <label for="first_name">First Name: </label>
+                    <input class="form-control" type="text" id="first_name" name="fname">
+                    <label for="last_name">Last Name: </label>
+                    <input class="form-control" type="text" id="last_name" name="lname">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input class="form-control" type="text" name="email">
+                </div>    
+
+                <div class="form-group">            
+                    <label for="password">Password:</label>
+                    <input class="form-control" type="password" name="password">
+                    <label for="password">Confirm Password:</label>
+                    <input class="form-control"  type="password" name="confirm">
+                </div>
+                             
+                <div class="input-group mb-3">
+                        <input class="btn btn-dark" type="submit" value="Start Wishing!">
+                </div> 
+            </form>
+        </div>
+        <div id="login" class="col">
+            {% with messages = get_flashed_messages(with_categories=true) %}<!-- declare a variable called messages-->
+                {% if messages %}  
+                <ul class="flashes"><!-- check if there are any messages -->
+                    {% for category, message in messages %} <!-- loop through the messages -->
+                        {% if category == 'login' %}
+                        <p class="error {{category}}">{{message}}</p> 
+                        {% endif %} <!-- display each message in a paragraph tag-->
+                    {% endfor %}
+                </ul>     
+                {% endif %}
+            {% endwith %}
+            <form action="/login", method="POST">
+                <h3>Login</h3>
+                <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input class="form-control" type="text" name="email">
+                </div>    
+
+                <div class="form-group">            
+                    <label for="password">Password:</label>
+                    <input class="form-control" type="password" name="password">
+                </div>
+                <div class="input-group mb-3">
+                        <input class="btn btn-dark" type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>    
+</body>
+</html>

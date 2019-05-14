@@ -1,0 +1,3 @@
+{% if all_jobs['id'] == user_jobs['id'] %}
+                            <td><a href="/jobs/edit"> | Edit |</a><a href="/jobs/remove/{{all_jobs['id']}}"> Remove</a></td>
+                            {% endif %}

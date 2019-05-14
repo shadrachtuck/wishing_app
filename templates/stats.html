@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>See Stats</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Hello {{session['first_name']}}! Here are the wish stats!</h3>
+        <a href="/dashboard">Dashboard |</a>
+        <a href="/logout"> Logout</a>
+    
+        
+        <h4>{{display_wish['wish']}}</h4>
+        {% for display_wish in display_wish%}
+            <ul class="list-group">
+                <li class="list-group-item">{{display_wish['description']}}</li>
+                <li class="list-group-item">Location: {{display_wish['location']}}</li>
+                <li class="list-group-item">Posted by: {{display_wish['first_name']}}</li>
+                <li class="list-group-item">Posted on: {{display_wish['created_at']}}</li>
+                <li class="list-group-item">Categories: {{display_wish['category']}}</li>
+            </ul>
+            <a href="/wish/edit/{{display_wish['id']}}"> Edit |</a><a href="/wish/remove/{{display_wish['id']}}"> Delete</a></li>
+        {%endfor%}
+    </div>
+    
+</body>
+</html>

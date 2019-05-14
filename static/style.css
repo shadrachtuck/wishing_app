@@ -1,0 +1,46 @@
+
+#register {
+    display: inline-block;
+    width: 600px;
+}
+
+#login {
+    display: inline-block;
+    width: 400px;
+    vertical-align: top;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    margin-left: -2.5em;
+    color: green;
+}
+
+.removed {
+    margin-left: -2.5em;
+    color: blue;
+} 
+
+.form-check p {
+    display: inline-block;
+    margin-right: 25px;
+    line-height: 29px;
+}
+
+#user_wishes form {
+    display: inline-block;
+    margin-left: -15px;
+    margin-bottom: -10px;
+}
+
+#user_wishes a {
+    display: inline-block;
+}
+
+#user_wishes .btn {
+    padding-bottom: 8px;
+}
+
